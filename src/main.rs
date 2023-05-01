@@ -2,8 +2,10 @@ use std::env;
 use std::process::{Command, Stdio};
 
 fn main() {
-    let mut args: Vec<String> = env::args().skip(2).collect();
-    println!("{:?}", args);
+    let mut args: Vec<String> = env::args()
+        .skip(1) // Skip arg 0 (callpath)
+        .skip(1) // Skip arg 1 (command passed to us from `cargo`)
+        .collect();
     let nix_flake = vec!["develop".to_owned(), "--command".to_owned()];
 
     let mut child_args = nix_flake;
